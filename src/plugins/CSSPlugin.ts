@@ -103,7 +103,11 @@ export class CSSPlugin
         );
     }
 
-    getCompletions(document: Document, position: Position): CompletionList | null {
+    getCompletions(document: Document, position: Position, triggerCharacter: string): CompletionList | null {
+        if (triggerCharacter != undefined && !['/', '-'].includes(triggerCharacter)) {
+            return null;
+        }
+        
         if (!this.host.getConfig<boolean>('css.completions.enable')) {
             return null;
         }
